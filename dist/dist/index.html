@@ -254,11 +254,10 @@
         </fieldset>
         <label>사건 개요 *<textarea name="summary" rows="6" required placeholder="진료 전 상태, 받은 설명, 실제 경과, 현재 상황을 시간 순서대로 적어주세요."></textarea></label>
         <label class="urgent"><input type="checkbox" name="urgent"><span><b>긴급 사안입니다</b><small>생명·안전의 즉각적 위험 또는 자료 훼손 우려가 있는 경우</small></span></label>
-        <label class="consent"><input type="checkbox" name="consent" required><span>상담 검토를 위한 개인정보 제공 및 이메일 전송에 동의합니다. *</span></label>
-        <p class="privacy-note">입력 내용은 이 사이트에 저장되지 않으며, 사용자의 이메일 앱을 통해 법률사무소 쉴드로 전송됩니다.</p>
+        <label class="consent"><input type="checkbox" name="consent" required><span>상담 검토를 위해 입력한 개인정보를 이메일 전송 서비스(FormSubmit)를 거쳐 법률사무소 쉴드로 전송하는 데 동의합니다. *</span></label>
+        <p class="privacy-note">입력 내용은 이 사이트에 저장되지 않으며, 전송 서비스의 개인정보 처리방침에 따라 처리된 뒤 법률사무소 쉴드 이메일로 전달됩니다.</p>
         <div class="form-actions">
           <button class="button button-primary form-submit" type="submit">상담 내용 메일로 보내기 <span aria-hidden="true">↗</span></button>
-          <button class="copy-button" type="button" id="copy-case">내용 복사</button>
         </div>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>

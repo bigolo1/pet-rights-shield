@@ -36,26 +36,7 @@ if ('IntersectionObserver' in window) {
 
 const form = document.getElementById('case-form');
 const status = document.getElementById('form-status');
-const copyButton = document.getElementById('copy-case');
-
-function caseText() {
-  const data = new FormData(form);
-  return [
-    '[동편 × 쉴드 반려동물 의료분쟁 검토 요청]',
-    '',
-    `보호자 성함: ${data.get('guardian') || ''}`,
-    `연락처: ${data.get('phone') || ''}`,
-    `회신 이메일: ${data.get('email') || ''}`,
-    `반려동물: ${data.get('pet') || ''} / ${data.get('species') || ''}`,
-    `동물병원: ${data.get('hospital') || ''}`,
-    `주요 진료일: ${data.get('treatmentDate') || ''}`,
-    `도움이 필요한 부분: ${data.get('help') || ''}`,
-    `긴급 여부: ${data.get('urgent') ? '긴급' : '일반'}`,
-    '',
-    '[사건 개요]',
-    data.get('summary') || ''
-  ].join('\n');
-}
+const submitButton = form.querySelector('.form-submit');
 
 function validateForm() {
   if (!form.reportValidity()) {
@@ -65,22 +46,52 @@ function validateForm() {
   return true;
 }
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (!validateForm()) return;
+
   const data = new FormData(form);
   const urgent = data.get('urgent') ? '[긴급] ' : '';
   const subject = `${urgent}반려동물 의료분쟁 검토 요청 - ${data.get('guardian')} / ${data.get('pet')}`;
-  status.textContent = '작성한 내용으로 이메일 앱을 여는 중입니다.';
-  window.location.href = `mailto:bigolo1@naver.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(caseText())}`;
-});
+  const originalButtonContent = submitButton.innerHTML;
 
-copyButton.addEventListener('click', async () => {
-  if (!validateForm()) return;
+  submitButton.disabled = true;
+  submitButton.textContent = '상담 내용을 전송하고 있습니다…';
+  status.textContent = '잠시만 기다려 주세요.';
+
   try {
-    await navigator.clipboard.writeText(caseText());
-    status.textContent = '상담 내용을 복사했습니다. 이메일 본문에 붙여넣어 주세요.';
+    const response = await fetch('https://formsubmit.co/ajax/bigolo1@naver.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: subject,
+        _template: 'table',
+        _captcha: 'false',
+        _honey: '',
+        email: data.get('email'),
+        '보호자 성함': data.get('guardian'),
+        '연락처': data.get('phone'),
+        '회신 이메일': data.get('email'),
+        '반려동물': `${data.get('pet')} / ${data.get('species')}`,
+        '동물병원': data.get('hospital'),
+        '주요 진료일': data.get('treatmentDate'),
+        '도움이 필요한 부분': data.get('help'),
+        '긴급 여부': data.get('urgent') ? '긴급' : '일반',
+        '사건 개요': data.get('summary')
+      })
+    });
+
+    if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
+
+    form.reset();
+    status.textContent = '상담 내용이 전송되었습니다. 확인 후 입력하신 연락처로 안내드리겠습니다.';
   } catch {
-    status.textContent = '복사하지 못했습니다. 내용을 직접 선택해 복사해 주세요.';
+    status.textContent = '전송하지 못했습니다. 잠시 후 다시 시도하거나 bigolo1@naver.com으로 직접 문의해 주세요.';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalButtonContent;
   }
 });
