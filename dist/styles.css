@@ -175,7 +175,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .process-list li:hover i { color: var(--blue-light); transform: translate(3px, -3px); }
 
 .counsel { background: var(--cream); display: grid; grid-template-columns: .85fr 1.15fr; gap: 90px; align-items: center; }
-.counsel-photo { position: relative; width: min(100%, 380px); justify-self: center; }
+.counsel-photo { position: relative; width: min(100%, 300px); justify-self: center; }
 .counsel-photo::before { content: ""; position: absolute; inset: -18px 18px 18px -18px; border: 1px solid var(--blue); }
 .counsel-photo img { position: relative; width: 100%; aspect-ratio: .76; object-fit: cover; object-position: center 22%; filter: saturate(.8); }
 .photo-caption { position: absolute; right: -25px; bottom: 26px; background: var(--blue); color: white; padding: 16px 22px; display: flex; flex-direction: column; }
@@ -259,7 +259,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .manifesto-text { grid-column: 2; max-width: 620px; margin-top: 30px; }
   .process-head, .consult-intro { position: static; }
   .record-list ul { grid-template-columns: repeat(2, 1fr); }
-  .counsel-photo { width: min(100%, 330px); margin: 0 auto; }
+  .counsel-photo { width: min(100%, 270px); margin: 0 auto; }
 }
 
 @media (max-width: 700px) {
@@ -311,7 +311,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .process-list li { grid-template-columns: 48px 1fr; min-height: 155px; }
   .process-list i { display: none; }
   .counsel { gap: 70px; }
-  .counsel-photo { width: min(86%, 285px); }
+  .counsel-photo { width: min(78%, 230px); }
   .counsel-copy h2 { margin-top: 42px; }
   .photo-caption { right: -8px; }
   .consult { gap: 60px; }
