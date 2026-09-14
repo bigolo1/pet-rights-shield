@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); font-size: 16px; line-height: 1.65; word-break: keep-all; overflow-x: hidden; }
 body.menu-open { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
@@ -190,6 +190,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .form-top { display: flex; justify-content: space-between; padding-bottom: 22px; border-bottom: 2px solid var(--ink); margin-bottom: 30px; font-size: .67rem; letter-spacing: .14em; }
 .form-top b { color: var(--red); }
 .form-grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid label { min-width: 0; }
 .consult-form > label, .form-grid label { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; font-size: .78rem; font-weight: 800; }
 .consult-form input:not([type="radio"]):not([type="checkbox"]), .consult-form select, .consult-form textarea { width: 100%; border: 1px solid rgba(7,21,37,.22); background: white; padding: 15px 16px; border-radius: 0; outline: none; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
 .consult-form input:focus, .consult-form select:focus, .consult-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,99,137,.13); }
@@ -309,11 +310,28 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .photo-caption { right: -8px; }
   .consult { gap: 60px; }
   .contact-direct a { font-size: 1.15rem; }
-  .consult-form { padding: 24px 19px; margin-inline: -10px; }
+  .consult-form { padding: 24px 19px; margin-inline: 0; }
+  .consult-form input:not([type="radio"]):not([type="checkbox"]), .consult-form select, .consult-form textarea { min-width: 0; font-size: 16px; line-height: 1.45; }
+  .contact-direct a, .footer-contact, .footer-links { overflow-wrap: anywhere; word-break: break-word; }
   .form-grid.two, .choice-grid { grid-template-columns: 1fr; gap: 0; }
   .choice { margin-bottom: 7px; }
   .site-footer { grid-template-columns: 1fr; }
   .footer-notice, .copyright { grid-column: 1; }
+}
+
+@media (max-width: 360px) {
+  .hero h1 { font-size: clamp(2.5rem, 12.5vw, 3rem); }
+  .hero-visual { min-height: 460px; }
+  .vet-card, .lawyer-card { width: 205px; }
+  .vet-card { right: 0; }
+  .lawyer-card { left: 0; bottom: 36px; }
+  .symbol-wrap, .portrait-wrap { height: 190px; }
+  .symbol-wrap img { width: 116px; height: 116px; }
+  .alliance-stamp { width: 94px; height: 94px; right: -2px; bottom: 38px; }
+  .alliance-stamp b { font-size: .55rem; }
+  .alliance-stamp span { font-size: .68rem; }
+  .manifesto blockquote p { font-size: 2.15rem; }
+  .consult-form { padding-inline: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
